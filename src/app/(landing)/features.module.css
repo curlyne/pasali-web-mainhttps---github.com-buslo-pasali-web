@@ -1,0 +1,39 @@
+.features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 2rem 0;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+
+  }
+  
+  .layout p {
+    margin: 0;
+    font-size: 1.125rem;
+    opacity: 1;
+    color: rgba(0,0,0,1);
+    font-weight: 500;
+    font-style: normal;
+    letter-spacing: 0.06px;
+  }
+
+  .layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    padding: 2rem;
+    box-sizing: border-box;
+    background-color: white;
+    color: black;
+    text-align: left;
+    align-items:last baseline;
+    align-content: end;
+  }
+  
+  .section {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 2rem;
+  }

@@ -1,0 +1,25 @@
+
+  .layout p {
+    color: #000000;
+    text-decoration: none;
+    margin: 0 0.5rem;
+    font-size: 1.125rem;
+    align-items: center;
+  }
+
+  .layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    padding: 20rem;
+    box-sizing: border-box;
+    background-color: rgb(255, 255, 255);
+    text-align: center;
+    align-items: center;
+  }
+  
+  .section {
+    width: 100%;
+    max-width: 600px;
+  }
