@@ -1,0 +1,125 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum GuestResponse {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+model UserEvent {
+  id             Int                 @id @default(autoincrement())
+  slug           String              @db.VarChar(128)
+  type           String              @db.VarChar(128)
+  name           String              @db.VarChar(128)
+  date           DateTime            @db.Date
+  domain         String?             @db.VarChar(64)
+  domainVerified Boolean             @default(false)
+  layout         Json
+  payment        UserEventPayment?
+  profiles       UserEventProfile[]
+  guestGroups    EventGuestGroup[]
+  announcements  EventAnnouncement[]
+  venues         EventVenue[]
+  gifts          EventGift[]
+}
+
+model UserEventProfile {
+  id          Int       @id @default(autoincrement())
+  user        String    @db.Uuid
+  role        Bytes
+  userEventId Int
+  userEvent   UserEvent @relation(fields: [userEventId], references: [id], onDelete: Cascade)
+  accepted    Boolean   @default(false)
+}
+
+model UserEventPayment {
+  id              Int       @id @default(autoincrement())
+  userEventId     Int       @unique
+  userEvent       UserEvent @relation(fields: [userEventId], references: [id], onDelete: Cascade)
+  confirmation    String    @db.VarChar(128)
+  createdAt       DateTime  @db.Date
+  amountIndicated Int
+  amountPaid      Int
+  currency        String    @db.VarChar(8)
+  discountCode    String?   @db.VarChar(16)
+}
+
+model EventGuest {
+  id            Int                       @id @default(autoincrement())
+  guestOwner    Int?
+  name          String                    @db.VarChar(128)
+  message       String                    @db.Text
+  otherData     Json                      @default("{}")
+  contact       Json                      @default("{}")
+  response      GuestResponse             @default(PENDING)
+  guestGroupId  Int
+  guestGroup    EventGuestGroup           @relation(fields: [guestGroupId], references: [id], onDelete: Cascade)
+  announcements EventAnnouncementTarget[]
+}
+
+model EventGuestGroup {
+  id          Int          @id @default(autoincrement())
+  name        String       @db.VarChar(128)
+  slug        String       @db.VarChar(128)
+  userEventId Int
+  userEvent   UserEvent    @relation(fields: [userEventId], references: [id], onDelete: Cascade)
+  sortOrder   Int
+  guests      EventGuest[]
+
+  @@unique([userEventId, slug], name: "eventSlug")
+}
+
+model EventVenue {
+  id          Int       @id @default(autoincrement())
+  name        String    @db.VarChar(128)
+  slug        String    @db.VarChar(128)
+  address     String    @db.Text
+  link        String?   @db.VarChar(512)
+  purpose     String    @db.VarChar(32)
+  userEventId Int
+  userEvent   UserEvent @relation(fields: [userEventId], references: [id], onDelete: Cascade)
+
+  @@unique([userEventId, slug], name: "eventSlug")
+}
+
+model EventAnnouncement {
+  id          Int                       @id @default(autoincrement())
+  subject     String                    @db.VarChar(128)
+  content     String                    @db.Text
+  sendDate    DateTime                  @db.Timestamptz
+  sent        Boolean                   @default(false)
+  userEventId Int
+  userEvent   UserEvent                 @relation(fields: [userEventId], references: [id], onDelete: Cascade)
+  targets     EventAnnouncementTarget[]
+}
+
+model EventAnnouncementTarget {
+  id             Int               @id @default(autoincrement())
+  guestId        Int
+  guest          EventGuest        @relation(fields: [guestId], references: [id], onDelete: Cascade)
+  announcementId Int
+  announcement   EventAnnouncement @relation(fields: [announcementId], references: [id], onDelete: Cascade)
+  readAt         DateTime?
+}
+
+model EventGift {
+  id          Int       @id @default(autoincrement())
+  type        String    @db.VarChar(64)
+  name        String    @db.VarChar(128)
+  slug        String    @db.VarChar(128)
+  link        String    @db.VarChar(512)
+  picture     String    @db.VarChar(512)
+  content     String    @db.Text
+  otherData   Json      @default("{}")
+  userEventId Int
+  userEvent   UserEvent @relation(fields: [userEventId], references: [id], onDelete: Cascade)
+
+  @@unique([userEventId, slug], name: "eventSlug")
+}

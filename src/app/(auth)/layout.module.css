@@ -1,0 +1,12 @@
+.container {
+    @apply bg-gray-700 grid min-h-screen;
+    grid-template-columns: 1fr min(580px, 100vw);
+}
+
+.container .content {
+    @apply p-6;
+}
+
+.content .inner {
+    @apply border bg-background h-full rounded-lg;
+}

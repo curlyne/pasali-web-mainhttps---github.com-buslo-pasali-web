@@ -1,0 +1,22 @@
+.container {
+  @apply flex flex-row py-3 pr-3 gap-2 items-center;
+  @apply bg-card border-b overflow-x-scroll;
+}
+
+.logo {
+  @apply px-3 pl-7 md:pl-5;
+  @apply flex flex-row items-center sticky left-0;
+}
+
+.logo h2 {
+  @apply text-2xl flex-grow;
+  vertical-align: middle;
+}
+
+.navbarItemContainer {
+  @apply hidden md:flex flex-row flex-grow;
+}
+
+.navbarItemMobileContainer {
+  @apply md:hidden w-[180px];
+}

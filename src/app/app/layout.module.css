@@ -1,0 +1,16 @@
+.container {
+    @apply grid mx-auto border-x bg-background;
+    grid-template-rows: auto 1fr;
+    max-width: 1280px;
+    min-height: max(320px, 100svh);
+}
+
+@media (max-width: 1440px) {
+    .container {
+        @apply border-x-0;
+    }
+}
+
+.settingsContainer {
+    @apply z-50 fixed inset-0 grid place-items-center;
+}

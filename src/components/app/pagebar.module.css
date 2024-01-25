@@ -1,0 +1,34 @@
+.container {
+    @apply bg-background border-b;
+    @apply px-6 py-4 select-none;
+    @apply sticky top-0;
+    @apply z-50;
+}
+
+.container h3 {
+    @apply font-bold uppercase;
+}
+
+.containerSplit {
+    @apply bg-background border-b;
+    @apply grid;
+
+    grid-template-columns: 340px 1fr;
+}
+
+.containerSplit h3 {
+    @apply font-bold uppercase;
+    @apply px-6 py-4 select-none;
+}
+
+.containerSplit.wide {
+    grid-template-columns: 480px 1fr;
+}
+
+.containerSplit .leftPane {
+    @apply flex flex-row items-center border-r;
+}
+
+.containerSplit .content {
+    @apply flex flex-row items-center gap-2 pl-3;
+}

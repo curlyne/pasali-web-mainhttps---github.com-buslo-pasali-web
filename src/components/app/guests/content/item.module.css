@@ -1,0 +1,13 @@
+.container {
+    @apply mx-3 px-3 py-1.5;
+    @apply flex flex-col gap-2;
+}
+
+.content {
+    @apply flex flex-row gap-1 items-center;
+    @apply select-none;
+}
+
+.details {
+    @apply block md:hidden -mt-2 pb-2;
+}

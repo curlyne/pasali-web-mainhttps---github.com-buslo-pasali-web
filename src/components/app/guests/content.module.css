@@ -1,0 +1,9 @@
+.container {
+    @apply grid;
+    grid-template-rows: auto 1fr;
+}
+
+.content {
+    @apply flex flex-col gap-2;
+    @apply my-3;
+}

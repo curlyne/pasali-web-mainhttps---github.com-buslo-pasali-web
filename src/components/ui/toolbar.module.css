@@ -1,0 +1,5 @@
+.container {
+    @apply px-3 h-[57px] bg-background flex flex-row items-center;
+    @apply border-b border-b-border;
+    @apply sticky top-0 z-40;
+}

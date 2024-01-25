@@ -1,0 +1,63 @@
+.container {
+    @apply grid relative;
+    align-items: start;
+    grid-template-columns: 340px 1fr;
+}
+
+.container.wide {
+    grid-template-columns: 480px 1fr;
+}
+
+.container .leftPane {
+    @apply bg-background border-r;
+    @apply relative h-full;
+}
+
+.container .leftPane .scroller {
+    @apply absolute inset-0;
+    @apply overflow-y-auto;
+}
+
+.container .content {
+    @apply relative h-full;
+}
+
+.container .content .scroller {
+    @apply absolute inset-0;
+    @apply overflow-y-auto;
+}
+
+.visibility {
+    @apply fixed left-2 bottom-2 z-50;
+    visibility: hidden;
+}
+
+@media (max-width: 1024px) {
+    .container {
+        @apply block;
+    }
+
+    .container .leftPane {
+        @apply bg-card z-50 shadow-md;
+        @apply absolute left-0 top-0 bottom-0 w-[280px];
+
+        transform: translateX(-264px);
+        transition: transform 125ms ease-out, background 125ms ease-out;
+    }
+
+    .container .leftPane:hover, .container .leftPane.opened {
+        transform: initial;
+    }
+
+    .container.wide .leftPane {
+        @apply w-full;
+    }
+
+    .container .content {
+        margin-left: 16px;
+    }
+
+    .visibility {
+        @apply visible fixed left-2 bottom-2 z-50;
+    }
+}

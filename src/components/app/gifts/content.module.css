@@ -1,0 +1,4 @@
+.container {
+    @apply grid;
+    grid-template-rows: auto 1fr;
+}

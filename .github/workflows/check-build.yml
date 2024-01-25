@@ -1,0 +1,26 @@
+name: "Check: Build App"
+on:
+  push:
+    branches-ignore:
+      - main
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+jobs:
+  npm-build:
+    name: "Check: Build code via NPM"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        name: Checkout code
+      - uses: actions/setup-node@v4
+        name: Setup NodeJS engine
+        with:
+          node-version: "21.5"
+      - run: rm -rf ./lambda
+        name: Delete Lambda directory
+      - run: npm ci
+        name: NPM Install
+      - run: npm run build
+        name: Build code
